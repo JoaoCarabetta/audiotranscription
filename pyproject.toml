@@ -47,6 +47,3 @@ test = "pytest tests/"
 format = "black ."
 lint = "mypy ."
 
-# Add a new section for uv
-[tool.uv]
-requirements = "requirements.txt"
