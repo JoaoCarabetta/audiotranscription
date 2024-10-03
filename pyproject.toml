@@ -1,7 +1,7 @@
 [project]
-name = "realtimeaudio"
+name = "your-project-name"
 version = "0.1.0"
-description = "Add your description here"
+description = "Your project description"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -14,8 +14,39 @@ dependencies = [
     "streamlit-webrtc>=0.47.9",
     "av>=12.3.0",
     "websockets>=13.1",
+    "fastapi",
+    "uvicorn",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "black",
+    "isort",
+    "mypy",
+    "uv",  # Add uv as a development dependency
 ]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.hatch.envs.default]
+dependencies = [
+    "pytest",
+    "black",
+    "isort",
+    "mypy",
+]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest tests/"
+format = "black ."
+lint = "mypy ."
+
+# Add a new section for uv
+[tool.uv]
+requirements = "requirements.txt"
