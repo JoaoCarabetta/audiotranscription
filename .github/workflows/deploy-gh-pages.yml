@@ -9,22 +9,20 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.10" # Updated to match your project's Python version
+      - uses: actions/checkout@v3
 
       - name: Install uv
-        run: pip install uv
+        uses: astral-sh/setup-uv@v3
 
-      - name: Install dependencies
-        run: uv pip install -r requirements.txt
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install the project
+        run: uv sync
 
       - name: Build and run Streamlit app
         run: |
-          streamlit run app.py &
+          uv run streamlit run app.py &
           sleep 10  # Give the app some time to start up
 
       - name: Capture Streamlit output
